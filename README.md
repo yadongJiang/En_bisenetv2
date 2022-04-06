@@ -5,6 +5,9 @@
 ## train
     python tools/train.py --data_root <path to your dataset> --dataset <your data's name> --num_classes <your dataset num classes> --lr 0.01 --crop_size 640 --crop_val --year 2012_aug
 
+# 计算量
+相比bisenetv2的计算量有所降低，bisenetv2的计算量为13G，en_bisenetv2的计算量为8.8G
+
 # 与bisenetv2的不同之处
 
 1. 将细节分支的卷积层替换为深度可分离卷积。显著降低计算量，同时准确率没有明显降低
