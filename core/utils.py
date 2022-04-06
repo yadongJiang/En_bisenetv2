@@ -237,9 +237,9 @@ class Stem(nn.Module):
         
         return out
 
-class CEBlockMutilRate(nn.Module):
+class CEBlockSimAspp(nn.Module):
     def __init__(self, in_channs, rates=(3, 6, 9)):
-        super(CEBlockMutilRate, self).__init__()
+        super(CEBlockSimAspp, self).__init__()
         mid_chans = in_channs//2
         self.conv = ConvBNReLU(in_channs, mid_chans, 1, 1, 0) # n
         self.convs = nn.ModuleList()
@@ -344,7 +344,7 @@ class SegmentBranch(nn.Module):
             GELayers1(128, 128), 
             GELayers1(128, 128), 
         )
-        self.s5_5 = CEBlockMutilRate(128)
+        self.s5_5 = CEBlockSimAspp(128)
         self.cma = ChannelAtten(128)
         self.fuse = FuseModule(128, 64)
 
