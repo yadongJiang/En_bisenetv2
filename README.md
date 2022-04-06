@@ -16,3 +16,6 @@
 5. 在GELayers1模块的第一个点卷积和GELayers2中的第二个点卷积中增加[SEModule](https://arxiv.org/abs/1709.01507)模块。
 6. 在语义分支的最后，借鉴[bisenetv1](https://arxiv.org/pdf/1808.00897.pdf)中的FuseModule模块，融合高层与低层特征。
 7. 将原BGABlock模块进行简化——SimBGABlock。
+
+# dataset
+本工程支持voc数据集以及自定义数据集的训练，同时在自定义的数据集的情况下，请使数据集格式与VOC数据集格式相同
