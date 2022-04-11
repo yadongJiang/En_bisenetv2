@@ -1,13 +1,13 @@
 # bisenetv2的优化版
 优化bisenetv2, 在项目中, bisenetv2在测试集中mIOU只能达到73%, 经过优化, en_bisenetv2能达到76.7%, 同时计算量有所降低
 
-# train
+## train
     python ./tools/train.py --data_root <path to your dataset> --dataset <your data's name> --num_classes <your dataset num classes> --lr 0.01 --crop_size 640 --crop_val --year 2012_aug
 
-# demo
+## demo
     python ./tools/demo.py --num_classes 4 --crop_size 640 --weight_path <path of weight(pth)>
 
-# export to onnx
+## export to onnx
     onnx_saved_path: 保存生成的onnx模型的路径 onnx_name: 生成onnx的模型名
     python ./tools/export.py --num_classes 4 --weight_path <path of weight(pth)> --onnx_saved_path <path of gen onnx> --onnx_name <onnx name>
 
