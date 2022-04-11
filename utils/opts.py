@@ -60,4 +60,10 @@ def get_argparser():
                         choices=['2012_aug', '2012', '2011', '2009', '2008', '2007'], help='year of VOC')
 
     parser.add_argument("--s", type=float, default=0.0001, help="scale sparse rate (default:0.0001)")
+
+    # ------------------------------------- for inference and onnx -----------------------------------
+    parser.add_argument("--weight_path", type=str, default="C:/Users/dmall/Downloads/best_bisenetv3_shelves_os16 (3).pth", 
+                            help="weight file")
+    parser.add_argument("--onnx_saved_path", type=str, default="./", help="pth weight serialize to onnx weight")
+    parser.add_argument("--onnx_name", type=str, default="weights.onnx", help="pth weight serialize to onnx weight")
     return parser
