@@ -118,7 +118,7 @@ def main():
     scaler = amp.GradScaler()
     interval_loss = 0
 
-    '''while True: 
+    while True: 
         # =====  Train  =====
         model.train()
         cur_epochs += 1
@@ -168,7 +168,7 @@ def main():
 
             if cur_itrs >=  args.total_itrs:
                 print("best_score:", best_score)
-                return'''
+                return
 
 if __name__ == '__main__':
     main()

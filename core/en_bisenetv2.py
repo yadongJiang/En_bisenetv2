@@ -31,11 +31,11 @@ class ENBiSeNetV2(nn.Module):
 def enbisenetv2(num_classes):
     model = ENBiSeNetV2(num_classes)
 
-    '''import copy
+    import copy
     import thop
     model_tmp = copy.deepcopy(model)
     flops, params = thop.profile(model_tmp, inputs=(torch.randn(1, 3, 640, 640), ))
-    print("%.2fG" % (flops/1e9), "%.2fM" % (params/1e6))'''
+    print("%.2fG" % (flops/1e9), "%.2fM" % (params/1e6))
     return model
 
 if __name__ == "__main__":

@@ -48,6 +48,23 @@ class PostionAtten(nn.Module):
 
         return x*y + x
 
+class ChannelAtten(nn.Module):
+    def __init__(self, in_chann, mid_chann):
+        super(ChannelAtten, self).__init__()
+        self.pool = nn.AdaptiveAvgPool2d(1)
+        self.conv = nn.Sequential(
+            nn.Linear(in_chann, mid_chann, bias=False),
+            nn.ReLU(inplace=True),
+            nn.Linear(mid_chann, in_chann, bias=True),
+            nn.Sigmoid()
+        )
+
+    def forward(self, x):
+        bs, c, _, _ = x.size()
+        y = self.pool(x).view(bs, c)
+        y = self.conv(y).view(bs, c, 1, 1)
+        return x * y + x
+
 class DetailBranch(nn.Module):
     def __init__(self):
         super(DetailBranch, self).__init__()
@@ -103,23 +120,6 @@ class SEModule(nn.Module):
         y = self.pool(x).view(bs, c)
         y = self.conv(y).view(bs, c, 1, 1)
         return x * y
-
-class ChannelAtten(nn.Module):
-    def __init__(self, in_chann):
-        super(ChannelAtten, self).__init__()
-        self.pool = nn.AdaptiveAvgPool2d(1)
-        self.conv = nn.Sequential(
-            nn.Linear(in_chann, in_chann // 6, bias=False),
-            nn.ReLU(inplace=True),
-            nn.Linear(in_chann//6, in_chann, bias=True),
-            nn.Sigmoid()
-        )
-
-    def forward(self, x):
-        bs, c, _, _ = x.size()
-        y = self.pool(x).view(bs, c)
-        y = self.conv(y).view(bs, c, 1, 1)
-        return x * y + x
 
 class GELayers1(nn.Module):
     def __init__(self, in_chann, out_chann, padding=1, dilation=1):
@@ -345,7 +345,7 @@ class SegmentBranch(nn.Module):
             GELayers1(128, 128), 
         )
         self.s5_5 = CEBlockSimAspp(128)
-        self.cma = ChannelAtten(128)
+        self.cma = ChannelAtten(128, 64)
         self.fuse = FuseModule(128, 64)
 
     def forward(self, x):
