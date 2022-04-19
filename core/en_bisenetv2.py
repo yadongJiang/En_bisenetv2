@@ -13,7 +13,6 @@ class ENBiSeNetV2(nn.Module):
 
         self.aux1 = SegmentHead(128, 128, num_classes, up_factor=8)
         self.aux2 = SegmentHead(64, 128, num_classes, up_factor=16)
-        self.aux3 = SegmentHead(128, 128, num_classes, up_factor=8)
 
     def forward(self, x):
         detail = self.detail(x) # [bs, 128, 80, 80]
@@ -24,8 +23,7 @@ class ENBiSeNetV2(nn.Module):
         if self.training:
             out_aux1 = self.aux1(feat8)
             out_aux2 = self.aux2(feat16)
-            out_aux3 = self.aux3(detail)
-            return out, out_aux1, out_aux2, out_aux3
+            return out, out_aux1, out_aux2
         return out
 
 def enbisenetv2(num_classes):

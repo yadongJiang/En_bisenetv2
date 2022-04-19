@@ -131,12 +131,11 @@ def main():
 
             optimizer.zero_grad()
             with amp.autocast(enabled=True):
-                outputs, aux_out0, aux_out1, aux_out2 = model(images)
+                outputs, aux_out0, aux_out1 = model(images)
                 # 加权交叉熵函数与边缘注意力损失函数
                 loss = criterion(outputs, (labels, edgemask)) 
                 loss += args.aux_alpha * criterion(aux_out0, (labels, edgemask))
                 loss += args.aux_alpha * criterion(aux_out1, (labels, edgemask))
-                loss += args.aux_alpha * criterion(aux_out2, (labels, edgemask))
             
             scaler.scale(loss).backward()
             scaler.step(optimizer)

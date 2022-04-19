@@ -85,16 +85,12 @@ class DetailBranch(nn.Module):
             DWConv(128, 128, 3, 1, 1)
         )
 
-        # 空间注意力
-        self.pa = PostionAtten(128)
-
         self._init_weights()
 
     def forward(self, x):
         feat1 = self.s1(x)
         feat2 = self.s2(feat1)
         feat3 = self.s3(feat2) 
-        feat3 = self.pa(feat3)
         return feat3
 
     def _init_weights(self):
